@@ -1,0 +1,2711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="description" content="Agentiify: Deploy autonomous AI agents that run your business 24/7 with zero human intervention.">
+  <meta name="theme-color" content="#050507">
+  
+  <!-- Security Headers (CSP - adjust for your backend) -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    img-src 'self' https: data:;
+    font-src 'self' https://fonts.gstatic.com;
+    connect-src 'self';
+    frame-ancestors 'none';
+    base-uri 'self';
+    form-action 'self';
+  ">
+  
+  <!-- Preconnect for Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Space+Grotesk:wght@400;500;600;700&display=swap"></noscript>
+  
+  <title>Agentiify — Autonomous AI Agents for Business</title>
+  
+  <style>
+    /* ═══════════════════════════════════
+       AGENTIIFY — SECURITY HARDENED
+       Dark: #050507 | Card: #0a0a0f
+       Sky: #5BC0EB | Violet: #7C3AED
+       ═══════════════════════════════════ */
+    :root {
+      --bg:        #050507;
+      --bg2:       #0a0a0f;
+      --bg3:       #111118;
+      --border:    rgba(255,255,255,0.06);
+      --border2:   rgba(255,255,255,0.10);
+      --text:      #f0f0f5;
+      --text2:     #8a8a9a;
+      --text3:     #5a5a6a;
+      --sky:       #5BC0EB;
+      --violet:    #7C3AED;
+      --violet-g:  rgba(124,58,237,0.35);
+      --grad-txt:  linear-gradient(180deg, #ffffff 0%, #a0a0b0 100%);
+      --grad-sky:  linear-gradient(135deg, #5BC0EB 0%, #7C3AED 100%);
+      --r:         20px;
+      --r-sm:      14px;
+      /* Security & Accessibility */
+      --focus-ring: 0 0 0 3px rgba(124, 58, 237, 0.5);
+      --safe-area: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+
+    /* Reset & Base */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;scroll-padding-top:80px;}
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      font-weight:400;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      line-height:1.5;
+      text-rendering:optimizeLegibility;
+    }
+    
+    /* Skip Link for Accessibility */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--violet);
+      color: white;
+      padding: 8px 16px;
+      z-index: 1000;
+      transition: top 0.3s;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+    
+    /* Focus Styles for Accessibility */
+    a:focus, button:focus, input:focus, textarea:focus {
+      outline: none;
+      box-shadow: var(--focus-ring);
+    }
+    
+    /* ─ NAV ─ */
+    nav{
+      position:fixed;
+      top:0;
+      width:100%;
+      z-index:200;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:1.2rem 6%;
+      background:rgba(5,5,7,0.8);
+      backdrop-filter:blur(24px);
+      border-bottom:1px solid var(--border);
+      transition:all .3s;
+      isolation: isolate;
+    }
+    nav.sc{
+      background:rgba(5,5,7,0.95);
+      padding:.9rem 6%;
+      box-shadow:0 4px 20px rgba(0,0,0,0.2);
+    }
+    .nav-logo{
+      font-family:'Space Grotesk',sans-serif;
+      font-weight:700;
+      font-size:1.3rem;
+      letter-spacing:-.02em;
+      text-decoration:none;
+      color:var(--text);
+      display:flex;
+      align-items:center;
+      gap:.55rem;
+    }
+    .nav-logo img{
+      width:32px;
+      height:32px;
+      border-radius:8px;
+      object-fit:cover;
+      content-visibility: auto;
+    }
+    .nav-links{
+      display:flex;
+      gap:2.2rem;
+      list-style:none;
+    }
+    .nav-links a{
+      color:var(--text2);
+      text-decoration:none;
+      font-size:.86rem;
+      font-weight:500;
+      transition:color .2s;
+      padding: 4px 0;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--violet);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after,
+    .nav-links a:focus::after {
+      width: 100%;
+    }
+    .nav-links a:hover,
+    .nav-links a:focus {
+      color: var(--text);
+    }
+    .nav-right{
+      display:flex;
+      align-items:center;
+      gap:.8rem;
+    }
+    .n-ghost{
+      background:transparent;
+      border:1px solid var(--border2);
+      color:var(--text2);
+      padding:.55rem 1.3rem;
+      border-radius:100px;
+      font-size:.84rem;
+      font-weight:500;
+      text-decoration:none;
+      transition:all .2s;
+      cursor: pointer;
+    }
+    .n-ghost:hover,
+    .n-ghost:focus {
+      border-color:var(--violet);
+      color:var(--text);
+      background:rgba(124,58,237,0.08);
+    }
+    .n-cta{
+      background:var(--text);
+      color:var(--bg);
+      border:none;
+      padding:.6rem 1.4rem;
+      border-radius:100px;
+      font-family:'Inter';
+      font-size:.86rem;
+      font-weight:600;
+      transition:all .22s;
+      text-decoration:none;
+      user-select: none;
+    }
+    .n-cta:hover,
+    .n-cta:focus {
+      background:var(--sky);
+      color:#fff;
+      box-shadow:0 4px 20px rgba(91,192,235,0.3);
+      transform:translateY(-2px);
+    }
+    
+    /* ─ HERO ─ */
+    .hero{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:10rem 5% 6rem;
+      position:relative;
+      overflow:hidden;
+      background:var(--bg);
+      will-change: transform;
+    }
+    
+    /* Animated orbs - optimized */
+    .orb{
+      position:absolute;
+      border-radius:50%;
+      filter:blur(80px);
+      opacity:.35;
+      pointer-events:none;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+    .orb-1{
+      width:500px;
+      height:500px;
+      background:radial-gradient(circle,var(--violet-g),transparent 70%);
+      top:-10%;
+      left:-5%;
+      animation:float 8s ease-in-out infinite;
+    }
+    .orb-2{
+      width:400px;
+      height:400px;
+      background:radial-gradient(circle,rgba(91,192,235,0.25),transparent 70%);
+      bottom:10%;
+      right:-5%;
+      animation:float 10s ease-in-out infinite 1s;
+    }
+    .orb-3{
+      width:300px;
+      height:300px;
+      background:radial-gradient(circle,rgba(124,58,237,0.2),transparent 70%);
+      top:40%;
+      left:50%;
+      animation:float 12s ease-in-out infinite 2s;
+    }
+    @keyframes float{
+      0%,100%{transform:translate(0,0) scale(1);}
+      50%{transform:translate(30px,-30px) scale(1.1);}
+    }
+    
+    /* Particle canvas - secure & performant */
+    #particles{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      z-index:1;
+      image-rendering: pixelated;
+    }
+    
+    .h-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      background:rgba(255,255,255,0.04);
+      border:1px solid var(--border2);
+      color:var(--text2);
+      font-size:.72rem;
+      font-weight:600;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      padding:.38rem 1rem;
+      border-radius:100px;
+      margin-bottom:2rem;
+      position:relative;
+      z-index:2;
+      animation:rise .8s ease both;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+    .bdot{
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:var(--grad-sky);
+      animation:pd 2.2s infinite;
+    }
+    @keyframes pd{
+      0%,100%{opacity:1;transform:scale(1);}
+      50%{opacity:.3;transform:scale(.6);}
+    }
+    
+    .hero h1{
+      font-family:'Inter',sans-serif;
+      font-size:clamp(2.8rem,6vw,5.5rem);
+      font-weight:700;
+      line-height:1.05;
+      letter-spacing:-.03em;
+      max-width:16ch;
+      color:var(--text);
+      position:relative;
+      z-index:2;
+      animation:rise .85s ease .1s both;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .hero h1 em{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-weight:500;
+      background:var(--grad-txt);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+      user-select: none;
+    }
+    .h-sub{
+      margin-top:1.6rem;
+      font-size:clamp(.9rem,1.2vw,1.05rem);
+      color:var(--text2);
+      max-width:48ch;
+      line-height:1.75;
+      position:relative;
+      z-index:2;
+      animation:rise .85s ease .2s both;
+    }
+    .h-btns{
+      margin-top:2.4rem;
+      display:flex;
+      gap:1rem;
+      flex-wrap:wrap;
+      justify-content:center;
+      position:relative;
+      z-index:2;
+      animation:rise .85s ease .3s both;
+    }
+    
+    .btn-p, .btn-o {
+      appearance: none;
+      -webkit-appearance: none;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-p:focus-visible,
+    .btn-o:focus-visible {
+      outline: 2px solid var(--sky);
+      outline-offset: 2px;
+    }
+    
+    .btn-p{
+      background:var(--text);
+      color:var(--bg);
+      padding:.95rem 2rem;
+      border-radius:100px;
+      font-family:'Inter';
+      font-size:.92rem;
+      font-weight:600;
+      transition:all .22s;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+    }
+    .btn-p:hover,
+    .btn-p:focus {
+      background:var(--sky);
+      color:#fff;
+      box-shadow:0 6px 24px rgba(91,192,235,0.35);
+      transform:translateY(-2px);
+    }
+    .btn-o{
+      background:transparent;
+      color:var(--text2);
+      border:1px solid var(--border2);
+      padding:.95rem 2rem;
+      border-radius:100px;
+      font-family:'Inter';
+      font-size:.92rem;
+      font-weight:500;
+      transition:all .22s;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+    }
+    .btn-o:hover,
+    .btn-o:focus {
+      border-color:var(--text);
+      color:var(--text);
+      background:rgba(255,255,255,0.03);
+    }
+    
+    /* Hero dashboard mockup - secure image handling */
+    .h-dash-wrap{
+      margin-top:5rem;
+      width:100%;
+      max-width:920px;
+      position:relative;
+      z-index:2;
+      animation:rise 1s ease .45s both;
+      perspective:1200px;
+    }
+    .h-dash-wrap::before{
+      content:'';
+      position:absolute;
+      bottom:-30px;
+      left:50%;
+      transform:translateX(-50%);
+      width:70%;
+      height:60px;
+      background:radial-gradient(ellipse,rgba(124,58,237,0.3),transparent 70%);
+      filter:blur(25px);
+      pointer-events:none;
+    }
+    .h-dash{
+      background:var(--bg2);
+      border-radius:18px;
+      border:1px solid var(--border);
+      box-shadow:0 20px 60px rgba(0,0,0,0.5);
+      overflow:hidden;
+      transform:rotateX(3deg);
+      transition:transform .4s;
+      isolation: isolate;
+    }
+    .h-dash:hover{
+      transform:rotateX(0deg);
+    }
+    .dtbar{
+      background:rgba(255,255,255,0.02);
+      border-bottom:1px solid var(--border);
+      padding:.7rem 1.1rem;
+      display:flex;
+      align-items:center;
+      gap:.4rem;
+    }
+    .dd{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+    }
+    .dd.r{background:#ef4444;}.dd.y{background:#f59e0b;}.dd.g{background:#22c55e;}
+    .dtlbl{
+      font-size:.7rem;
+      color:var(--text3);
+      margin-left:.6rem;
+      font-weight:500;
+    }
+    .d-inner{
+      display:grid;
+      grid-template-columns:190px 1fr;
+    }
+    .d-sb{
+      background:rgba(255,255,255,0.015);
+      border-right:1px solid var(--border);
+      padding:1.2rem .8rem;
+      display:flex;
+      flex-direction:column;
+      gap:.15rem;
+    }
+    .d-slogo{
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+      padding:.4rem .6rem 1rem;
+      font-size:.8rem;
+      font-weight:700;
+      color:var(--text);
+      font-family:'Space Grotesk',sans-serif;
+    }
+    .d-slogo img{
+      width:20px;
+      height:20px;
+      border-radius:5px;
+      object-fit:cover;
+      content-visibility: auto;
+    }
+    .d-si{
+      padding:.45rem .7rem;
+      border-radius:8px;
+      font-size:.72rem;
+      color:var(--text3);
+      font-weight:500;
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+      transition:all .2s;
+      cursor:default;
+    }
+    .d-si.act{
+      background:rgba(124,58,237,0.1);
+      color:var(--sky);
+      border:1px solid rgba(124,58,237,0.18);
+    }
+    .d-si:hover:not(.act){
+      background:rgba(255,255,255,0.03);
+      color:var(--text2);
+    }
+    .d-sep{
+      height:1px;
+      background:var(--border);
+      margin:.45rem 0;
+    }
+    .d-main{
+      padding:1.3rem;
+      display:flex;
+      flex-direction:column;
+      gap:.9rem;
+    }
+    .d-stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:.6rem;
+    }
+    .d-stat{
+      background:rgba(255,255,255,0.02);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:.9rem 1rem;
+      position:relative;
+      overflow:hidden;
+    }
+    .d-stat::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:2px;
+      background:var(--grad-sky);
+      opacity:.6;
+    }
+    .d-sl{
+      font-size:.6rem;
+      color:var(--text3);
+      text-transform:uppercase;
+      letter-spacing:.07em;
+      margin-bottom:.3rem;
+    }
+    .d-sv{
+      font-family:'Space Grotesk',sans-serif;
+      font-size:1.35rem;
+      font-weight:700;
+      color:var(--text);
+    }
+    .d-st{
+      font-size:.6rem;
+      margin-top:.15rem;
+      font-weight:500;
+    }
+    .up{color:#4ade80;}.bl{color:var(--sky);}
+    .d-bot{
+      display:grid;
+      grid-template-columns:1fr 160px;
+      gap:.6rem;
+    }
+    .d-chart{
+      background:rgba(255,255,255,0.015);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:.9rem;
+    }
+    .d-chd{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:.7rem;
+    }
+    .d-clbl{
+      font-size:.6rem;
+      color:var(--text3);
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+    .d-cbdg{
+      font-size:.58rem;
+      background:rgba(124,58,237,0.1);
+      color:var(--violet);
+      border:1px solid rgba(124,58,237,0.15);
+      padding:.12rem .45rem;
+      border-radius:100px;
+      font-weight:600;
+    }
+    .d-bars{
+      display:flex;
+      align-items:flex-end;
+      gap:4px;
+      height:55px;
+    }
+    .d-b{
+      flex:1;
+      border-radius:3px 3px 0 0;
+      background:rgba(124,58,237,0.12);
+      transition:background .2s;
+    }
+    .d-b:hover{
+      background:rgba(124,58,237,0.35);
+    }
+    .d-b.hi{
+      background:linear-gradient(180deg,var(--violet),rgba(124,58,237,0.4));
+      box-shadow:0 -3px 10px rgba(124,58,237,0.25);
+    }
+    .d-b.md{
+      background:rgba(124,58,237,0.22);
+    }
+    .d-ags{
+      background:rgba(255,255,255,0.015);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:.9rem;
+    }
+    .d-agl{
+      font-size:.6rem;
+      color:var(--text3);
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      margin-bottom:.6rem;
+    }
+    .d-ag{
+      display:flex;
+      align-items:center;
+      gap:.45rem;
+      margin-bottom:.4rem;
+      font-size:.68rem;
+      color:var(--text2);
+    }
+    .ag-d{
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      flex-shrink:0;
+    }
+    .ag-d.sky{background:var(--sky);}.ag-d.st{background:var(--violet);}.ag-d.g{background:#4ade80;}.ag-d.o{background:#fb923c;}
+    .ag-live{
+      font-size:.55rem;
+      color:#4ade80;
+      background:rgba(74,222,128,0.06);
+      border:1px solid rgba(74,222,128,0.15);
+      padding:.08rem .35rem;
+      border-radius:100px;
+      margin-left:auto;
+      font-weight:600;
+    }
+    
+    /* ─ SHARED ─ */
+    section{
+      padding:7rem 6%;
+      scroll-margin-top: 100px;
+    }
+    .s-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      background:rgba(255,255,255,0.04);
+      border:1px solid var(--border2);
+      color:var(--text2);
+      font-size:.7rem;
+      font-weight:600;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      padding:.32rem .85rem;
+      border-radius:100px;
+      margin-bottom:1.2rem;
+    }
+    h2.s-title{
+      font-family:'Inter',sans-serif;
+      font-size:clamp(1.8rem,3.5vw,3.2rem);
+      font-weight:700;
+      letter-spacing:-.02em;
+      line-height:1.1;
+      color:var(--text);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    h2.s-title em{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-weight:500;
+      color:var(--text2);
+    }
+    .s-sub{
+      color:var(--text2);
+      font-size:.92rem;
+      line-height:1.7;
+      max-width:46ch;
+      margin-top:.8rem;
+    }
+    
+    /* ─ BENEFITS (3 Cards) ─ */
+    .benefits{
+      background:var(--bg);
+      position:relative;
+    }
+    .b-hdr{
+      text-align:center;
+      margin-bottom:3.5rem;
+    }
+    .b-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.5rem;
+    }
+    .b-card{
+      background:var(--bg2);
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      padding:2.5rem 2rem;
+      text-align:center;
+      transition:all .3s;
+      cursor:default;
+      position:relative;
+      overflow:hidden;
+    }
+    .b-card:focus-within {
+      border-color: var(--violet);
+      box-shadow: var(--focus-ring);
+    }
+    .b-card::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:1px;
+      background:linear-gradient(90deg,transparent,rgba(124,58,237,0.4),transparent);
+      opacity:0;
+      transition:opacity .3s;
+    }
+    .b-card:hover{
+      border-color:rgba(124,58,237,0.2);
+      transform:translateY(-4px);
+    }
+    .b-card:hover::before{
+      opacity:1;
+    }
+    .b-viz{
+      height:120px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:1.5rem;
+      position:relative;
+    }
+    /* Speedometer - optimized animation */
+    .speedo{
+      width:100px;
+      height:50px;
+      position:relative;
+    }
+    .speedo-arc{
+      width:100px;
+      height:50px;
+      border-radius:100px 100px 0 0;
+      border:2px solid rgba(255,255,255,0.06);
+      border-bottom:none;
+      position:relative;
+    }
+    .speedo-needle{
+      width:2px;
+      height:45px;
+      background:linear-gradient(to top,var(--violet),transparent);
+      position:absolute;
+      bottom:0;
+      left:50%;
+      transform-origin:bottom center;
+      transform:rotate(-45deg);
+      animation:speed 3s ease-in-out infinite;
+      will-change: transform;
+    }
+    .speedo-dot{
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:var(--violet);
+      position:absolute;
+      bottom:0;
+      left:50%;
+      transform:translateX(-50%);
+      box-shadow:0 0 10px var(--violet-g);
+    }
+    @keyframes speed{
+      0%,100%{transform:rotate(-45deg);}
+      50%{transform:rotate(45deg);}
+    }
+    /* Bar chart - accessible */
+    .bars-viz{
+      display:flex;
+      align-items:flex-end;
+      gap:8px;
+      height:80px;
+    }
+    .bv-bar{
+      width:28px;
+      border-radius:6px 6px 0 0;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.06);
+      position:relative;
+    }
+    .bv-bar::after{
+      content:'';
+      position:absolute;
+      bottom:0;
+      left:0;
+      right:0;
+      border-radius:0 0 6px 6px;
+      height:var(--h);
+      background:linear-gradient(180deg,rgba(124,58,237,0.5),rgba(124,58,237,0.1));
+      border-radius:6px 6px 0 0;
+      animation:grow 2s ease-out infinite alternate;
+    }
+    .bv-bar:nth-child(1){--h:40%;}.bv-bar:nth-child(2){--h:65%;}.bv-bar:nth-child(3){--h:50%;}.bv-bar:nth-child(4){--h:80%;}
+    @keyframes grow{
+      from{height:20%;}
+      to{height:var(--h);}
+    }
+    /* Network - accessible animations */
+    .net-viz{
+      width:100px;
+      height:100px;
+      position:relative;
+    }
+    .net-center{
+      width:24px;
+      height:24px;
+      border-radius:50%;
+      background:var(--bg2);
+      border:2px solid rgba(124,58,237,0.4);
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .net-center::before{
+      content:'';
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--violet);
+      box-shadow:0 0 12px var(--violet-g);
+    }
+    .net-node{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.12);
+      position:absolute;
+    }
+    .net-line{
+      position:absolute;
+      height:1px;
+      background:rgba(124,58,237,0.15);
+      transform-origin:left center;
+    }
+    .net-n1{top:10%;left:50%;transform:translateX(-50%);animation:orbit 6s linear infinite;}
+    .net-n2{top:30%;right:5%;animation:orbit 8s linear infinite 1s;}
+    .net-n3{bottom:15%;right:15%;animation:orbit 7s linear infinite 2s;}
+    .net-n4{bottom:15%;left:15%;animation:orbit 9s linear infinite 3s;}
+    .net-n5{top:30%;left:5%;animation:orbit 5s linear infinite 4s;}
+    @keyframes orbit{
+      0%{transform:rotate(0deg) translateX(40px) rotate(0deg);}
+      100%{transform:rotate(360deg) translateX(40px) rotate(-360deg);}
+    }
+    
+    .b-card h3{
+      font-family:'Inter',sans-serif;
+      font-size:1.05rem;
+      font-weight:600;
+      margin-bottom:.5rem;
+      color:var(--text);
+    }
+    .b-card p{
+      font-size:.82rem;
+      color:var(--text2);
+      line-height:1.65;
+    }
+    
+    /* ─ SERVICES GRID (2x2) ─ */
+    .services{
+      background:var(--bg2);
+      position:relative;
+    }
+    .s-hdr{
+      text-align:center;
+      margin-bottom:3.5rem;
+    }
+    .s-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:1.25rem;
+    }
+    .s-card{
+      background:var(--bg);
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      padding:2rem;
+      transition:all .3s;
+      cursor:default;
+      position:relative;
+      overflow:hidden;
+    }
+    .s-card::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:1px;
+      background:linear-gradient(90deg,transparent,rgba(124,58,237,0.3),transparent);
+      opacity:0;
+      transition:opacity .3s;
+    }
+    .s-card:hover{
+      border-color:rgba(124,58,237,0.18);
+      transform:translateY(-3px);
+    }
+    .s-card:hover::before{
+      opacity:1;
+    }
+    .s-viz{
+      height:140px;
+      background:rgba(255,255,255,0.015);
+      border:1px solid var(--border);
+      border-radius:var(--r-sm);
+      margin-bottom:1.5rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .s-viz::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at 50% 50%,rgba(124,58,237,0.05),transparent 70%);
+    }
+    /* Task list mini - accessible */
+    .mini-list{
+      display:flex;
+      flex-direction:column;
+      gap:.5rem;
+      width:80%;
+    }
+    .ml-item{
+      background:rgba(255,255,255,0.03);
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:.55rem .7rem;
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+      font-size:.68rem;
+      color:var(--text2);
+    }
+    .ml-check{
+      width:14px;
+      height:14px;
+      border-radius:4px;
+      background:rgba(124,58,237,0.15);
+      border:1px solid rgba(124,58,237,0.25);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--violet);
+      font-size:.6rem;
+    }
+    .ml-check::after {
+      content: "Completed";
+      position: absolute;
+      left: -9999px;
+    }
+    /* Orbit icons - accessible */
+    .orbit-wrap{
+      width:120px;
+      height:120px;
+      position:relative;
+    }
+    .orbit-center{
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      background:var(--bg2);
+      border:1px solid var(--border2);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      box-shadow:0 0 30px rgba(124,58,237,0.15);
+    }
+    .orbit-center svg{
+      width:20px;
+      height:20px;
+      color:var(--text);
+    }
+    .orbit-icon{
+      width:28px;
+      height:28px;
+      border-radius:8px;
+      background:var(--bg2);
+      border:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:absolute;
+      font-size:.75rem;
+      color:var(--text3);
+    }
+    .oi-1{top:0;left:50%;transform:translateX(-50%);animation:orbit2 8s linear infinite;}
+    .oi-2{top:50%;right:0;transform:translateY(-50%);animation:orbit2 8s linear infinite 2s;}
+    .oi-3{bottom:0;left:50%;transform:translateX(-50%);animation:orbit2 8s linear infinite 4s;}
+    .oi-4{top:50%;left:0;transform:translateY(-50%);animation:orbit2 8s linear infinite 6s;}
+    @keyframes orbit2{
+      0%{transform:rotate(0deg) translateX(50px) rotate(0deg);}
+      100%{transform:rotate(360deg) translateX(50px) rotate(-360deg);}
+    }
+    /* Code block - secure */
+    .code-block{
+      width:85%;
+      background:rgba(0,0,0,0.3);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:1rem;
+      font-family:'Space Grotesk',monospace;
+      font-size:.65rem;
+      color:var(--text3);
+      line-height:1.6;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .code-line{
+      display:flex;
+      gap:.6rem;
+    }
+    .code-num{
+      color:var(--text3);
+      width:14px;
+      text-align:right;
+      flex-shrink:0;
+    }
+    .code-kw{color:var(--violet);}.code-str{color:var(--sky);}.code-fn{color:#c4b5fd;}
+    /* Strategy nodes - accessible */
+    .strat-nodes{
+      display:flex;
+      gap:1rem;
+      align-items:center;
+    }
+    .sn{
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.02);
+      border:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+    }
+    .sn::before{
+      content:'';
+      position:absolute;
+      inset:-4px;
+      border-radius:50%;
+      border:1px solid rgba(124,58,237,0.1);
+      animation:ping 2s cubic-bezier(0,0,0.2,1) infinite;
+    }
+    .sn:nth-child(2)::before{animation-delay:.5s;}
+    .sn:nth-child(3)::before{animation-delay:1s;}
+    @keyframes ping{
+      75%,100%{transform:scale(1.3);opacity:0;}
+    }
+    .sn svg{
+      width:20px;
+      height:20px;
+      color:var(--text2);
+    }
+    .s-conn{
+      width:30px;
+      height:1px;
+      background:linear-gradient(90deg,var(--violet),transparent);
+    }
+    
+    .s-card h3{
+      font-family:'Inter',sans-serif;
+      font-size:1.05rem;
+      font-weight:600;
+      margin-bottom:.4rem;
+      color:var(--text);
+    }
+    .s-card p{
+      font-size:.82rem;
+      color:var(--text2);
+      line-height:1.65;
+    }
+    
+    /* ─ ALL FEATURES (3 Cards) ─ */
+    .all-feat{
+      background:var(--bg);
+    }
+    .af-hdr{
+      text-align:center;
+      margin-bottom:3.5rem;
+    }
+    .af-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.5rem;
+    }
+    .af-card{
+      background:var(--bg2);
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      padding:2.2rem 1.8rem;
+      text-align:center;
+      transition:all .3s;
+      cursor:default;
+      position:relative;
+      overflow:hidden;
+    }
+    .af-card::before{
+      content:'';
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      height:1px;
+      background:linear-gradient(90deg,transparent,rgba(91,192,235,0.3),transparent);
+      opacity:0;
+      transition:opacity .3s;
+    }
+    .af-card:hover{
+      border-color:rgba(91,192,235,0.15);
+      transform:translateY(-4px);
+    }
+    .af-card:hover::before{
+      opacity:1;
+    }
+    .af-ico-wrap{
+      width:64px;
+      height:64px;
+      border-radius:16px;
+      background:rgba(255,255,255,0.03);
+      border:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin:0 auto 1.4rem;
+      gap:.6rem;
+    }
+    .af-ico-wrap svg{
+      width:22px;
+      height:22px;
+      color:var(--text2);
+    }
+    .af-card h3{
+      font-family:'Inter',sans-serif;
+      font-size:1rem;
+      font-weight:600;
+      margin-bottom:.45rem;
+      color:var(--text);
+    }
+    .af-card p{
+      font-size:.82rem;
+      color:var(--text2);
+      line-height:1.65;
+    }
+    
+    /* ─ PROCESS ─ */
+    .process{
+      background:var(--bg2);
+      position:relative;
+      overflow:hidden;
+    }
+    .process::before{
+      content:'';
+      position:absolute;
+      top:-100px;
+      left:50%;
+      transform:translateX(-50%);
+      width:600px;
+      height:400px;
+      background:radial-gradient(ellipse,rgba(124,58,237,0.06) 0%,transparent 70%);
+      pointer-events:none;
+    }
+    .p-hdr{
+      text-align:center;
+      margin-bottom:3rem;
+      position:relative;
+      z-index:1;
+    }
+    .p-tabs{
+      display:flex;
+      gap:1rem;
+      justify-content:center;
+      margin-bottom:3rem;
+      position:relative;
+      z-index:1;
+    }
+    .p-tab{
+      background:transparent;
+      border:1px solid var(--border);
+      color:var(--text3);
+      padding:.7rem 2rem;
+      border-radius:10px;
+      font-family:'Inter';
+      font-size:.82rem;
+      font-weight:500;
+      cursor:pointer;
+      transition:all .25s;
+    }
+    .p-tab:focus-visible {
+      outline: 2px solid var(--violet);
+      outline-offset: 2px;
+    }
+    .p-tab.act{
+      background:rgba(124,58,237,0.08);
+      border-color:rgba(124,58,237,0.3);
+      color:var(--text);
+    }
+    .p-tab:hover:not(.act){
+      border-color:var(--border2);
+      color:var(--text2);
+    }
+    .p-content{
+      display:grid;
+      grid-template-columns:1.2fr 1fr;
+      gap:4rem;
+      align-items:center;
+      position:relative;
+      z-index:1;
+    }
+    .p-viz{
+      background:var(--bg);
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      padding:1.5rem;
+      position:relative;
+      overflow:hidden;
+      min-height:320px;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+    }
+    .p-viz::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:radial-gradient(ellipse at 30% 20%,rgba(124,58,237,0.06),transparent 60%);
+    }
+    .p-chart{
+      flex:1;
+      background:rgba(255,255,255,0.01);
+      border:1px solid var(--border);
+      border-radius:var(--r-sm);
+      padding:1rem;
+      position:relative;
+    }
+    .p-chart-line{
+      position:absolute;
+      bottom:1rem;
+      left:1rem;
+      right:1rem;
+      height:60px;
+    }
+    .p-chart-line svg{
+      width:100%;
+      height:100%;
+    }
+    .p-metrics{
+      position:absolute;
+      bottom:1.5rem;
+      left:1.5rem;
+      background:var(--bg2);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:1rem;
+      box-shadow:0 10px 40px rgba(0,0,0,0.4);
+    }
+    .pm-row{
+      display:flex;
+      align-items:center;
+      gap:.7rem;
+      margin-bottom:.6rem;
+    }
+    .pm-row:last-child{
+      margin-bottom:0;
+    }
+    .pm-icon{
+      width:26px;
+      height:26px;
+      border-radius:6px;
+      background:rgba(124,58,237,0.1);
+      border:1px solid rgba(124,58,237,0.15);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .pm-icon svg{
+      width:12px;
+      height:12px;
+      color:var(--violet);
+    }
+    .pm-txt{
+      font-size:.72rem;
+    }
+    .pm-txt strong{
+      display:block;
+      color:var(--text);
+      font-weight:600;
+    }
+    .pm-txt span{
+      color:var(--text3);
+      font-size:.65rem;
+    }
+    .pm-bar-bg{
+      width:120px;
+      height:4px;
+      background:rgba(255,255,255,0.05);
+      border-radius:2px;
+      margin-top:.25rem;
+      overflow:hidden;
+    }
+    .pm-bar-fill{
+      height:100%;
+      border-radius:2px;
+      background:linear-gradient(90deg,var(--violet),var(--sky));
+    }
+    .p-text .step-num{
+      font-family:'Space Grotesk',sans-serif;
+      font-size:.75rem;
+      font-weight:600;
+      color:var(--text3);
+      margin-bottom:.6rem;
+    }
+    .p-text h3{
+      font-family:'Inter',sans-serif;
+      font-size:clamp(1.3rem,2.2vw,1.7rem);
+      font-weight:700;
+      color:var(--text);
+      line-height:1.2;
+      margin-bottom:1rem;
+    }
+    .p-text p{
+      color:var(--text2);
+      font-size:.9rem;
+      line-height:1.75;
+      margin-bottom:1.5rem;
+    }
+    .p-list{
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:.6rem;
+    }
+    .p-list li{
+      display:flex;
+      align-items:center;
+      gap:.6rem;
+      font-size:.84rem;
+      color:var(--text2);
+    }
+    .p-list li::before{
+      content:'';
+      width:16px;
+      height:16px;
+      border-radius:50%;
+      background:rgba(124,58,237,0.1);
+      border:1px solid rgba(124,58,237,0.2);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 24 24' fill='none' stroke='%237C3AED' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat:no-repeat;
+      background-position:center;
+    }
+    
+    /* ─ INTEGRATIONS ─ */
+    .integrations{
+      background:var(--bg);
+    }
+    .int-hdr{
+      text-align:center;
+      margin-bottom:3rem;
+    }
+    .int-box{
+      background:var(--bg2);
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      padding:3rem 2rem;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .int-box::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:radial-gradient(ellipse at 50% 0%,rgba(124,58,237,0.06),transparent 60%);
+    }
+    .int-grid{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:1rem;
+      position:relative;
+      z-index:1;
+      max-width:600px;
+      margin:0 auto 2rem;
+    }
+    .int-item{
+      width:56px;
+      height:56px;
+      border-radius:14px;
+      background:rgba(255,255,255,0.03);
+      border:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin:0 auto;
+      font-size:1.3rem;
+      color:var(--text2);
+      transition:all .2s;
+    }
+    .int-item:focus-visible {
+      outline: 2px solid var(--sky);
+      outline-offset: 2px;
+    }
+    .int-item:hover,
+    .int-item:focus {
+      border-color:rgba(124,58,237,0.3);
+      background:rgba(124,58,237,0.06);
+      color:var(--text);
+      transform:translateY(-3px);
+    }
+    .int-quote{
+      color:var(--text2);
+      font-size:.9rem;
+      position:relative;
+      z-index:1;
+      font-style:italic;
+    }
+    
+    /* ─ FAQ ─ */
+    .faq{
+      background:var(--bg2);
+      position:relative;
+    }
+    .faq-grid{
+      display:grid;
+      grid-template-columns:320px 1fr;
+      gap:3rem;
+      align-items:start;
+    }
+    .faq-left{
+      background:var(--bg);
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      padding:2rem;
+      text-align:center;
+      position:sticky;
+      top:100px;
+    }
+    .faq-left .q-icon{
+      width:48px;
+      height:48px;
+      border-radius:50%;
+      background:rgba(124,58,237,0.08);
+      border:1px solid rgba(124,58,237,0.15);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin:0 auto 1.2rem;
+      color:var(--violet);
+      font-size:1.2rem;
+    }
+    .faq-left h3{
+      font-family:'Inter',sans-serif;
+      font-size:1.1rem;
+      font-weight:600;
+      margin-bottom:.5rem;
+    }
+    .faq-left p{
+      font-size:.82rem;
+      color:var(--text2);
+      line-height:1.6;
+      margin-bottom:1.2rem;
+    }
+    .faq-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      background:transparent;
+      border:1px solid var(--border2);
+      color:var(--text2);
+      padding:.6rem 1.2rem;
+      border-radius:100px;
+      font-size:.82rem;
+      font-weight:500;
+      text-decoration:none;
+      transition:all .2s;
+    }
+    .faq-btn:focus-visible {
+      outline: 2px solid var(--violet);
+      outline-offset: 2px;
+    }
+    .faq-btn:hover,
+    .faq-btn:focus {
+      border-color:var(--violet);
+      color:var(--text);
+      background:rgba(124,58,237,0.06);
+    }
+    .faq-item{
+      background:var(--bg);
+      border:1px solid var(--border);
+      border-radius:var(--r-sm);
+      margin-bottom:.7rem;
+      overflow:hidden;
+      transition:all .2s;
+    }
+    .faq-item:hover{
+      border-color:rgba(255,255,255,0.1);
+    }
+    .faq-q{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1.1rem 1.3rem;
+      cursor:pointer;
+      font-size:.9rem;
+      font-weight:500;
+      color:var(--text);
+      transition:color .2s;
+      user-select: none;
+    }
+    .faq-q:hover,
+    .faq-q:focus {
+      color:var(--sky);
+    }
+    .faq-icon{
+      width:18px;
+      height:18px;
+      position:relative;
+      flex-shrink:0;
+    }
+    .faq-icon::before,.faq-icon::after{
+      content:'';
+      position:absolute;
+      background:var(--text3);
+      transition:all .2s;
+    }
+    .faq-icon::before{
+      width:10px;
+      height:2px;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+    }
+    .faq-icon::after{
+      width:2px;
+      height:10px;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+    }
+    .faq-item.open .faq-icon::after{
+      transform:translate(-50%,-50%) rotate(90deg);
+      opacity:0;
+    }
+    .faq-item.open .faq-q{
+      color:var(--sky);
+    }
+    .faq-a{
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .3s ease,padding .3s ease;
+    }
+    .faq-item.open .faq-a{
+      max-height:200px;
+      padding:0 1.3rem 1.1rem;
+    }
+    .faq-a p{
+      font-size:.84rem;
+      color:var(--text2);
+      line-height:1.7;
+    }
+    
+    /* ─ COMPARISON ─ */
+    .compare{
+      background:var(--bg);
+      position:relative;
+    }
+    .compare::before{
+      content:'';
+      position:absolute;
+      top:-80px;
+      left:50%;
+      transform:translateX(-50%);
+      width:500px;
+      height:300px;
+      background:radial-gradient(ellipse,rgba(124,58,237,0.05) 0%,transparent 70%);
+      pointer-events:none;
+    }
+    .c-hdr{
+      text-align:center;
+      margin-bottom:3.5rem;
+      position:relative;
+      z-index:1;
+    }
+    .c-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:1.5rem;
+      position:relative;
+      z-index:1;
+    }
+    .c-card{
+      background:var(--bg2);
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      padding:2rem;
+    }
+    .c-card.us{
+      border-color:rgba(124,58,237,0.2);
+      background:linear-gradient(180deg,var(--bg2),rgba(124,58,237,0.03));
+    }
+    .c-head{
+      display:flex;
+      align-items:center;
+      gap:.6rem;
+      margin-bottom:1.5rem;
+      padding-bottom:1rem;
+      border-bottom:1px solid var(--border);
+    }
+    .c-head img{
+      width:28px;
+      height:28px;
+      border-radius:6px;
+      object-fit:cover;
+      content-visibility: auto;
+    }
+    .c-head strong{
+      font-family:'Space Grotesk',sans-serif;
+      font-size:1rem;
+      font-weight:700;
+      color:var(--text);
+    }
+    .c-head span{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-weight:400;
+      color:var(--text3);
+      margin-left:auto;
+    }
+    .c-item{
+      display:flex;
+      align-items:center;
+      gap:.7rem;
+      padding:.7rem 0;
+      font-size:.88rem;
+      color:var(--text2);
+      border-bottom:1px solid rgba(255,255,255,0.03);
+    }
+    .c-item:last-child{
+      border-bottom:none;
+    }
+    .c-check{
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      background:rgba(74,222,128,0.08);
+      border:1px solid rgba(74,222,128,0.15);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+      color:#4ade80;
+      font-size:.6rem;
+    }
+    .c-check::after {
+      content: "Included";
+      position: absolute;
+      left: -9999px;
+    }
+    .c-x{
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      background:rgba(239,68,68,0.06);
+      border:1px solid rgba(239,68,68,0.1);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+      color:#ef4444;
+      font-size:.6rem;
+    }
+    .c-x::after {
+      content: "Not included";
+      position: absolute;
+      left: -9999px;
+    }
+    
+    /* ─ CTA ─ */
+    .cta-s{
+      background:var(--bg);
+      padding:8rem 6%;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .cta-s::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:radial-gradient(ellipse 50% 40% at 50% 50%,rgba(124,58,237,0.08) 0%,transparent 70%);
+      pointer-events:none;
+    }
+    .cta-line{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:1rem;
+      margin-bottom:1.5rem;
+      position:relative;
+      z-index:1;
+    }
+    .cta-line::before,.cta-line::after{
+      content:'';
+      width:60px;
+      height:1px;
+      background:linear-gradient(90deg,transparent,var(--border2));
+    }
+    .cta-line::after{
+      background:linear-gradient(-90deg,transparent,var(--border2));
+    }
+    .cta-line span{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-size:.9rem;
+      color:var(--text3);
+    }
+    .cta-s h2{
+      font-family:'Inter',sans-serif;
+      font-size:clamp(2rem,4vw,3.5rem);
+      font-weight:700;
+      letter-spacing:-.02em;
+      color:var(--text);
+      margin-bottom:.8rem;
+      position:relative;
+      z-index:1;
+    }
+    .cta-s h2 em{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-weight:500;
+      color:var(--text2);
+    }
+    .cta-s > p{
+      color:var(--text2);
+      font-size:.95rem;
+      margin-bottom:2.5rem;
+      position:relative;
+      z-index:1;
+    }
+    .cta-mail{
+      color:var(--text2);
+      font-size:.9rem;
+      margin-top:2rem;
+      position:relative;
+      z-index:1;
+      text-decoration:none;
+      transition:color .2s;
+      direction: ltr;
+      unicode-bidi: bidi-override;
+    }
+    .cta-mail:hover,
+    .cta-mail:focus {
+      color:var(--sky);
+    }
+    .cta-socs{
+      display:flex;
+      gap:1rem;
+      justify-content:center;
+      margin-top:1.5rem;
+      position:relative;
+      z-index:1;
+    }
+    .cta-soc{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      border:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--text3);
+      text-decoration:none;
+      font-size:.85rem;
+      transition:all .2s;
+    }
+    .cta-soc:focus-visible {
+      outline: 2px solid var(--violet);
+      outline-offset: 2px;
+    }
+    .cta-soc:hover,
+    .cta-soc:focus {
+      border-color:var(--violet);
+      color:var(--violet);
+      background:rgba(124,58,237,0.06);
+    }
+    
+    /* ─ FOOTER ─ */
+    footer{
+      background:var(--bg2);
+      border-top:1px solid var(--border);
+      padding:4rem 6% 2rem;
+    }
+    .fg{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:2rem;
+      margin-bottom:3rem;
+    }
+    .fl{
+      font-family:'Space Grotesk',sans-serif;
+      font-weight:700;
+      font-size:1.2rem;
+      color:var(--text);
+      text-decoration:none;
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+    }
+    .fl img{
+      width:26px;
+      height:26px;
+      border-radius:6px;
+      object-fit:cover;
+      content-visibility: auto;
+    }
+    .f-links{
+      display:flex;
+      gap:2rem;
+      list-style:none;
+    }
+    .f-links a{
+      color:var(--text3);
+      text-decoration:none;
+      font-size:.84rem;
+      transition:color .2s;
+    }
+    .f-links a:hover,
+    .f-links a:focus {
+      color:var(--text);
+    }
+    .fbot{
+      border-top:1px solid var(--border);
+      padding-top:1.5rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:1rem;
+    }
+    .fbot p{
+      font-size:.78rem;
+      color:var(--text3);
+    }
+    
+    /* ─ ANIMATIONS ─ */
+    @keyframes rise{
+      from{opacity:0;transform:translateY(24px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    .reveal{
+      opacity:0;
+      transform:translateY(28px);
+      transition:opacity .7s ease,transform .7s ease;
+      will-change: opacity, transform;
+    }
+    .reveal.in{
+      opacity:1;
+      transform:translateY(0);
+    }
+    .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+    
+    /* ─ RESPONSIVE ─ */
+    @media(max-width:1024px){
+      .b-grid{grid-template-columns:1fr;}
+      .s-grid{grid-template-columns:1fr;}
+      .af-grid{grid-template-columns:1fr;}
+      .p-content{grid-template-columns:1fr;gap:2.5rem;}
+      .faq-grid{grid-template-columns:1fr;}
+      .faq-left{position:static;}
+      .c-grid{grid-template-columns:1fr;}
+      .int-grid{grid-template-columns:repeat(4,1fr);}
+      .d-inner{grid-template-columns:1fr;}
+      .d-sb{display:none;}
+      .d-bot{grid-template-columns:1fr;}
+    }
+    @media(max-width:768px){
+      .nav-links{display:none;}
+      section{padding:5rem 5%;}
+      .h-dash-wrap{display:none;}
+      .int-grid{grid-template-columns:repeat(3,1fr);}
+      .fg{flex-direction:column;text-align:center;}
+      .f-links{flex-wrap:wrap;justify-content:center;}
+      .nav-right {
+        flex-direction: column;
+        align-items: flex-end;
+      }
+      .n-ghost, .n-cta {
+        width: 100%;
+        text-align: center;
+      }
+    }
+    
+    /* ─ PRINT STYLES ─ */
+    @media print {
+      body {
+        background: white;
+        color: black;
+      }
+      nav, .orb, #particles, .h-dash-wrap, .b-viz, .s-viz, .af-ico-wrap, .p-viz, .int-grid, .faq-left, .cta-socs {
+        display: none !important;
+      }
+      section {
+        padding: 2rem;
+        page-break-inside: avoid;
+      }
+      a {
+        text-decoration: none;
+        color: black;
+      }
+      a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        color: #666;
+      }
+    }
+    
+    /* ─ REDUCED MOTION ─ */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .orb, .speedo-needle, .bv-bar::after, .net-node, .orbit-icon, .sn::before {
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Accessibility: Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- NAV -->
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <a href="#" class="nav-logo" aria-label="Agentiify home">
+      <img src="https://via.placeholder.com/32x32/7C3AED/FFFFFF?text=A" alt="Agentiify logo" width="32" height="32" loading="lazy">
+      Agentiify
+    </a>
+    <ul class="nav-links" role="menubar">
+      <li role="none"><a href="#benefits" role="menuitem">Benefits</a></li>
+      <li role="none"><a href="#services" role="menuitem">Services</a></li>
+      <li role="none"><a href="#process" role="menuitem">Process</a></li>
+      <li role="none"><a href="#faq" role="menuitem">FAQ</a></li>
+      <li role="none"><a href="#contact" role="menuitem">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="mailto:help.agentiify@yahoo.com" class="n-ghost" aria-label="Contact us via email">Contact</a>
+      <a href="mailto:help.agentiify@yahoo.com" class="n-cta" aria-label="Book an appointment with our team">Book Appointment</a>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    <!-- HERO -->
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="orb orb-1" aria-hidden="true"></div>
+      <div class="orb orb-2" aria-hidden="true"></div>
+      <div class="orb orb-3" aria-hidden="true"></div>
+      <canvas id="particles" aria-hidden="true"></canvas>
+
+      <div class="h-badge"><span class="bdot" aria-hidden="true"></span>Autonomous AI for Modern Business</div>
+      <h1 id="hero-title">Deploy AI Agents That<br><em>Run Your Business 24/7</em></h1>
+      <p class="h-sub">We engineer intelligent autonomous agents that execute complex workflows end-to-end — with zero human intervention required.</p>
+      <div class="h-btns">
+        <a href="mailto:help.agentiify@yahoo.com" class="btn-p" aria-label="Book an appointment with our AI specialists">Book an Appointment</a>
+        <a href="#services" class="btn-o" aria-label="Explore our AI automation solutions">Explore Solutions</a>
+      </div>
+
+      <!-- Dashboard Mockup - Secure Image Handling -->
+      <div class="h-dash-wrap" aria-label="Agentiify dashboard preview">
+        <div class="h-dash">
+          <div class="dtbar" aria-hidden="true">
+            <div class="dd r"></div><div class="dd y"></div><div class="dd g"></div>
+            <span class="dtlbl">Agentiify — Agent Command Center</span>
+          </div>
+          <div class="d-inner">
+            <div class="d-sb" aria-label="Dashboard navigation">
+              <div class="d-slogo">
+                <img src="https://via.placeholder.com/20x20/7C3AED/FFFFFF?text=A" alt="" width="20" height="20" loading="lazy">
+                Agentiify
+              </div>
+              <div class="d-si act" aria-current="page">Dashboard</div>
+              <div class="d-si">My Agents</div>
+              <div class="d-si">Workflows</div>
+              <div class="d-sep" aria-hidden="true"></div>
+              <div class="d-si">Analytics</div>
+              <div class="d-si">Integrations</div>
+              <div class="d-si">Settings</div>
+            </div>
+            <div class="d-main">
+              <div class="d-stats">
+                <div class="d-stat">
+                  <div class="d-sl">Tasks Automated</div>
+                  <div class="d-sv">14,203</div>
+                  <div class="d-st up">+ 38% this month</div>
+                </div>
+                <div class="d-stat">
+                  <div class="d-sl">Active Agents</div>
+                  <div class="d-sv">31</div>
+                  <div class="d-st bl">All systems live</div>
+                </div>
+                <div class="d-stat">
+                  <div class="d-sl">Hours Saved</div>
+                  <div class="d-sv">412h</div>
+                  <div class="d-st up">+ 85% reduction</div>
+                </div>
+              </div>
+              <div class="d-bot">
+                <div class="d-chart">
+                  <div class="d-chd">
+                    <div class="d-clbl">Workflow Executions — This Week</div>
+                    <div class="d-cbdg">+ 31% vs last week</div>
+                  </div>
+                  <div class="d-bars" aria-label="Weekly workflow execution chart">
+                    <div class="d-b" style="height:38%" aria-label="Monday: 38%"></div>
+                    <div class="d-b md" style="height:55%" aria-label="Tuesday: 55%"></div>
+                    <div class="d-b" style="height:48%" aria-label="Wednesday: 48%"></div>
+                    <div class="d-b hi" style="height:78%" aria-label="Thursday: 78%"></div>
+                    <div class="d-b md" style="height:64%" aria-label="Friday: 64%"></div>
+                    <div class="d-b hi" style="height:92%" aria-label="Saturday: 92%"></div>
+                    <div class="d-b md" style="height:71%" aria-label="Sunday: 71%"></div>
+                  </div>
+                </div>
+                <div class="d-ags">
+                  <div class="d-agl">Live Agents</div>
+                  <div class="d-ag"><div class="ag-d sky" aria-hidden="true"></div>Lead Qualifier<span class="ag-live">LIVE</span></div>
+                  <div class="d-ag"><div class="ag-d st" aria-hidden="true"></div>Email Sequencer<span class="ag-live">LIVE</span></div>
+                  <div class="d-ag"><div class="ag-d g" aria-hidden="true"></div>CV Screener<span class="ag-live">LIVE</span></div>
+                  <div class="d-ag"><div class="ag-d o" aria-hidden="true"></div>Invoice Processor<span class="ag-live">LIVE</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section class="benefits" id="benefits" aria-labelledby="benefits-title">
+      <div class="b-hdr">
+        <div class="s-tag">Benefits</div>
+        <h2 id="benefits-title" class="s-title reveal">Why Choose <em>Us?</em></h2>
+        <p class="s-sub reveal" style="margin:1rem auto 0;">Everything you need to automate, optimize, and scale your operations.</p>
+      </div>
+      <div class="b-grid">
+        <article class="b-card reveal" aria-labelledby="benefit-1">
+          <div class="b-viz" aria-hidden="true">
+            <div class="speedo">
+              <div class="speedo-arc"></div>
+              <div class="speedo-needle"></div>
+              <div class="speedo-dot"></div>
+            </div>
+          </div>
+          <h3 id="benefit-1">Time Efficiency</h3>
+          <p>Automation cuts repetitive tasks, saving hours and boosting productivity across every department in your organization.</p>
+        </article>
+        <article class="b-card reveal d1" aria-labelledby="benefit-2">
+          <div class="b-viz" aria-hidden="true">
+            <div class="bars-viz">
+              <div class="bv-bar"></div>
+              <div class="bv-bar"></div>
+              <div class="bv-bar"></div>
+              <div class="bv-bar"></div>
+            </div>
+          </div>
+          <h3 id="benefit-2">Business Growth</h3>
+          <p>Automation improves efficiency, driving measurable business growth through faster execution and reduced operational overhead.</p>
+        </article>
+        <article class="b-card reveal d2" aria-labelledby="benefit-3">
+          <div class="b-viz" aria-hidden="true">
+            <div class="net-viz">
+              <div class="net-center"></div>
+              <div class="net-node net-n1"></div>
+              <div class="net-node net-n2"></div>
+              <div class="net-node net-n3"></div>
+              <div class="net-node net-n4"></div>
+              <div class="net-node net-n5"></div>
+            </div>
+          </div>
+          <h3 id="benefit-3">Seamless Integration</h3>
+          <p>Connect tools, teams, and workflows with intelligent automation that plugs into your existing stack without disruption.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services" id="services" aria-labelledby="services-title">
+      <div class="s-hdr">
+        <div class="s-tag">Services</div>
+        <h2 id="services-title" class="s-title reveal">What We <em>Build</em></h2>
+        <p class="s-sub reveal" style="margin:1rem auto 0;">End-to-end AI solutions designed for enterprise scale and SMB agility.</p>
+      </div>
+      <div class="s-grid">
+        <article class="s-card reveal" aria-labelledby="service-1">
+          <div class="s-viz" aria-hidden="true">
+            <div class="mini-list">
+              <div class="ml-item"><div class="ml-check" aria-hidden="true">&#10003;</div>Employee Tracking</div>
+              <div class="ml-item"><div class="ml-check" aria-hidden="true">&#10003;</div>Payment Reminder</div>
+              <div class="ml-item"><div class="ml-check" aria-hidden="true">&#10003;</div>Cost Management</div>
+            </div>
+          </div>
+          <h3 id="service-1">Automate Repetitive Tasks</h3>
+          <p>We help you streamline internal operations by automating manual workflows that drain your team's time and energy every day.</p>
+        </article>
+        <article class="s-card reveal d1" aria-labelledby="service-2">
+          <div class="s-viz" aria-hidden="true">
+            <div class="orbit-wrap">
+              <div class="orbit-center" aria-label="Workflow automation icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" /></svg>
+              </div>
+              <div class="orbit-icon oi-1" aria-hidden="true">&#9993;</div>
+              <div class="orbit-icon oi-2" aria-hidden="true">&#128736;</div>
+              <div class="orbit-icon oi-3" aria-hidden="true">&#128200;</div>
+              <div class="orbit-icon oi-4" aria-hidden="true">&#128172;</div>
+            </div>
+          </div>
+          <h3 id="service-2">Automated Workflows</h3>
+          <p>Boost efficiency across teams with smart automation. Build intelligent workflows that automate multi-step processes across tools and platforms.</p>
+        </article>
+        <article class="s-card reveal" aria-labelledby="service-3">
+          <div class="s-viz" aria-hidden="true">
+            <div class="code-block" aria-label="Sample AI agent code">
+              <div class="code-line"><span class="code-num">1</span><span class="code-kw">def</span> <span class="code-fn">__init__</span>(self, limit):</div>
+              <div class="code-line"><span class="code-num">2</span>  self.limit = limit</div>
+              <div class="code-line"><span class="code-num">3</span>  self.mode = <span class="code-str">"idle"</span></div>
+              <div class="code-line"><span class="code-num">4</span></div>
+              <div class="code-line"><span class="code-num">5</span><span class="code-kw">def</span> <span class="code-fn">evaluate</span>(self, value):</div>
+              <div class="code-line"><span class="code-num">6</span>  <span class="code-kw">if</span> value > self.limit:</div>
+            </div>
+          </div>
+          <h3 id="service-3">Custom AI Agent Development</h3>
+          <p>We develop custom AI agents that integrate seamlessly with your tools, APIs, and databases — built specifically for your business logic.</p>
+        </article>
+        <article class="s-card reveal d1" aria-labelledby="service-4">
+          <div class="s-viz" aria-hidden="true">
+            <div class="strat-nodes">
+              <div class="sn" aria-label="Strategy node 1"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605" /></svg></div>
+              <div class="s-conn" aria-hidden="true"></div>
+              <div class="sn" aria-label="Strategy node 2"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" /></svg></div>
+              <div class="s-conn" aria-hidden="true"></div>
+              <div class="sn" aria-label="Strategy node 3"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" /><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" /></svg></div>
+            </div>
+          </div>
+          <h3 id="service-4">AI Strategy Consulting</h3>
+          <p>Get expert guidance to implement AI solutions that drive business growth. We map your workflows and identify high-impact automation opportunities.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ALL FEATURES -->
+    <section class="all-feat" id="features" aria-labelledby="features-title">
+      <div class="af-hdr">
+        <div class="s-tag">Features</div>
+        <h2 id="features-title" class="s-title reveal">All Features in <em>One Place</em></h2>
+        <p class="s-sub reveal" style="margin:1rem auto 0;">Everything you need to automate operations and boost productivity.</p>
+      </div>
+      <div class="af-grid">
+        <article class="af-card reveal" aria-labelledby="feature-1">
+          <div class="af-ico-wrap" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" /></svg>
+          </div>
+          <h3 id="feature-1">Workflow Automation</h3>
+          <p>Automate complex business processes to boost speed, clarity, and efficiency across every team and department.</p>
+        </article>
+        <article class="af-card reveal d1" aria-labelledby="feature-2">
+          <div class="af-ico-wrap" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V16.5" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.212 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+          </div>
+          <h3 id="feature-2">Custom AI Solutions</h3>
+          <p>Build tailored AI systems that align with your business goals, compliance requirements, and operational challenges.</p>
+        </article>
+        <article class="af-card reveal d2" aria-labelledby="feature-3">
+          <div class="af-ico-wrap" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25z" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" /></svg>
+          </div>
+          <h3 id="feature-3">AI Assistant</h3>
+          <p>Deploy intelligent virtual agents to streamline tasks, answer queries, and execute workflows across your organization.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="process" id="process" aria-labelledby="process-title">
+      <div class="p-hdr">
+        <div class="s-tag">Process</div>
+        <h2 id="process-title" class="s-title reveal">Our Simple & <em>Smart Process</em></h2>
+        <p class="s-sub reveal" style="margin:1rem auto 0;">Everything you need to collaborate, create, and scale — all in one place.</p>
+      </div>
+      <div class="p-tabs reveal" role="tablist" aria-label="Implementation process steps">
+        <button class="p-tab act" data-step="1" role="tab" aria-selected="true" aria-controls="step-1">Step 1</button>
+        <button class="p-tab" data-step="2" role="tab" aria-selected="false" aria-controls="step-2">Step 2</button>
+        <button class="p-tab" data-step="3" role="tab" aria-selected="false" aria-controls="step-3">Step 3</button>
+      </div>
+      <div class="p-content reveal" id="p-content">
+        <div class="p-viz" aria-hidden="true">
+          <div class="p-chart">
+            <svg viewBox="0 0 300 80" preserveAspectRatio="none" style="width:100%;height:100%;" role="img" aria-label="Performance growth chart">
+              <path d="M0,60 Q30,55 60,45 T120,35 T180,25 T240,30 T300,15" fill="none" stroke="rgba(124,58,237,0.3)" stroke-width="2"/>
+              <path d="M0,60 Q30,55 60,45 T120,35 T180,25 T240,30 T300,15" fill="none" stroke="url(#grad1)" stroke-width="2" stroke-dasharray="400" stroke-dashoffset="400">
+                <animate attributeName="stroke-dashoffset" from="400" to="0" dur="2s" fill="freeze"/>
+              </path>
+              <defs><linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#5BC0EB"/><stop offset="100%" style="stop-color:#7C3AED"/></linearGradient></defs>
+            </svg>
+          </div>
+          <div class="p-metrics">
+            <div class="pm-row">
+              <div class="pm-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg></div>
+              <div class="pm-txt"><strong>Marketing & Ads</strong><span>84% Score</span><div class="pm-bar-bg"><div class="pm-bar-fill" style="width:84%"></div></div></div>
+            </div>
+            <div class="pm-row">
+              <div class="pm-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" /></svg></div>
+              <div class="pm-txt"><strong>AI Automation</strong><span>94% Score</span><div class="pm-bar-bg"><div class="pm-bar-fill" style="width:94%"></div></div></div>
+            </div>
+            <div class="pm-row">
+              <div class="pm-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v.375c0 .621.504 1.125 1.125 1.125H20.25M3.75 6v.375m0 0A60.065 60.065 0 0112 3.493a60.065 60.065 0 018.25 2.882m-8.25 0V6m0 0v.375m0 0A60.065 60.065 0 0012 9.75a60.065 60.065 0 008.25-2.882M3.75 6.375V6" /></svg></div>
+              <div class="pm-txt"><strong>Money & Finance</strong><span>88% Score</span><div class="pm-bar-bg"><div class="pm-bar-fill" style="width:88%"></div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="p-text" id="step-1" role="tabpanel" aria-labelledby="tab-1">
+          <div class="step-num">01</div>
+          <h3>Discovery & Strategy</h3>
+          <p>We begin with a comprehensive audit of your existing workflows, data sources, and operational bottlenecks. Our team maps every touchpoint to identify the highest-impact automation opportunities for your business.</p>
+          <ul class="p-list">
+            <li>Full workflow and systems audit</li>
+            <li>ROI modeling and priority scoring</li>
+            <li>Custom agent architecture blueprint</li>
+            <li>Integration requirements mapping</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTEGRATIONS -->
+    <section class="integrations" id="integrations" aria-labelledby="integrations-title">
+      <div class="int-hdr">
+        <div class="s-tag">Integrations</div>
+        <h2 id="integrations-title" class="s-title reveal">Seamless <em>Integrations</em></h2>
+        <p class="s-sub reveal" style="margin:1rem auto 0;">Interact with all your favorite software without unnecessary fuss.</p>
+      </div>
+      <div class="int-box reveal">
+        <div class="int-grid" role="list" aria-label="Supported integration platforms">
+          <div class="int-item" role="listitem" aria-label="Slack integration">💬</div>
+          <div class="int-item" role="listitem" aria-label="Google Analytics integration">📊</div>
+          <div class="int-item" role="listitem" aria-label="Payment processing integration">💰</div>
+          <div class="int-item" role="listitem" aria-label="Cloud infrastructure integration">☁️</div>
+          <div class="int-item" role="listitem" aria-label="Database integration">🗄️</div>
+          <div class="int-item" role="listitem" aria-label="Email marketing integration">📧</div>
+          <div class="int-item" role="listitem" aria-label="CRM integration">🤝</div>
+          <div class="int-item" role="listitem" aria-label="Calendar integration">🗓️</div>
+          <div class="int-item" role="listitem" aria-label="Mobile app integration">📱</div>
+          <div class="int-item" role="listitem" aria-label="File storage integration">📁</div>
+        </div>
+        <p class="int-quote">"Our AI automation plugs into your stack to create a unified, intelligent workflow"</p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+      <div class="s-tag" style="text-align:center;display:block;width:fit-content;margin:0 auto 1.2rem;">FAQ's</div>
+      <h2 id="faq-title" class="s-title reveal" style="text-align:center;margin-bottom:3rem;">Frequently Asked <em>Questions</em></h2>
+      <div class="faq-grid">
+        <div class="faq-left reveal">
+          <div class="q-icon" aria-hidden="true">?</div>
+          <h3>Still Have Questions?</h3>
+          <p>Still have questions? Feel free to get in touch with us today!</p>
+          <a href="mailto:help.agentiify@yahoo.com" class="faq-btn" aria-label="Ask a question via email">✈ Ask A Question</a>
+        </div>
+        <div class="faq-right reveal d1">
+          <article class="faq-item open" itemscope itemtype="https://schema.org/Question">
+            <div class="faq-q" itemprop="name" role="button" aria-expanded="true" aria-controls="faq-answer-1">
+              What types of processes can you automate?
+              <div class="faq-icon" aria-hidden="true"></div>
+            </div>
+            <div class="faq-a" id="faq-answer-1" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+              <p itemprop="text">We specialize in automating repetitive workflows across operations, marketing, sales, customer support, HR, finance, and logistics using AI and custom logic tailored to your industry.</p>
+            </div>
+          </article>
+          <article class="faq-item" itemscope itemtype="https://schema.org/Question">
+            <div class="faq-q" itemprop="name" role="button" aria-expanded="false" aria-controls="faq-answer-2">
+              Do I need technical knowledge to use your service?
+              <div class="faq-icon" aria-hidden="true"></div>
+            </div>
+            <div class="faq-a" id="faq-answer-2" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+              <p itemprop="text">No technical knowledge is required. We handle the entire build, deployment, and maintenance process. You simply define the workflows, and we make them autonomous.</p>
+            </div>
+          </article>
+          <article class="faq-item" itemscope itemtype="https://schema.org/Question">
+            <div class="faq-q" itemprop="name" role="button" aria-expanded="false" aria-controls="faq-answer-3">
+              Can you integrate with our existing tools?
+              <div class="faq-icon" aria-hidden="true"></div>
+            </div>
+            <div class="faq-a" id="faq-answer-3" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+              <p itemprop="text">Absolutely. We integrate with 100+ enterprise tools including Salesforce, HubSpot, Slack, Notion, Google Workspace, Zapier, and custom APIs.</p>
+            </div>
+          </article>
+          <article class="faq-item" itemscope itemtype="https://schema.org/Question">
+            <div class="faq-q" itemprop="name" role="button" aria-expanded="false" aria-controls="faq-answer-4">
+              How long does implementation take?
+              <div class="faq-icon" aria-hidden="true"></div>
+            </div>
+            <div class="faq-a" id="faq-answer-4" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+              <p itemprop="text">Most agents go live within 14 days. Complex enterprise deployments may take 3-4 weeks depending on integration depth and compliance requirements.</p>
+            </div>
+          </article>
+          <article class="faq-item" itemscope itemtype="https://schema.org/Question">
+            <div class="faq-q" itemprop="name" role="button" aria-expanded="false" aria-controls="faq-answer-5">
+              Is your AI secure and compliant?
+              <div class="faq-icon" aria-hidden="true"></div>
+            </div>
+            <div class="faq-a" id="faq-answer-5" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+              <p itemprop="text">Yes. We follow SOC 2, GDPR, and HIPAA standards where applicable. All data is encrypted in transit and at rest with full audit trails.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARISON -->
+    <section class="compare" id="compare" aria-labelledby="compare-title">
+      <div class="c-hdr">
+        <div class="s-tag">Comparison</div>
+        <h2 id="compare-title" class="s-title reveal">Why Choose Us <em>Over Others</em></h2>
+        <p class="s-sub reveal" style="margin:1rem auto 0;">See how we compare against others in performance, growth, and reliability.</p>
+      </div>
+      <div class="c-grid">
+        <article class="c-card us reveal" aria-labelledby="agentiify-comparison">
+          <div class="c-head">
+            <img src="https://via.placeholder.com/28x28/7C3AED/FFFFFF?text=A" alt="Agentiify logo" width="28" height="28" loading="lazy">
+            <strong id="agentiify-comparison">Agentiify</strong>
+          </div>
+          <div class="c-item"><div class="c-check" aria-hidden="true">&#10003;</div>Fast setup with ready AI workflows</div>
+          <div class="c-item"><div class="c-check" aria-hidden="true">&#10003;</div>Built to grow and adapt with you</div>
+          <div class="c-item"><div class="c-check" aria-hidden="true">&#10003;</div>Real-time, AI-powered analytics</div>
+          <div class="c-item"><div class="c-check" aria-hidden="true">&#10003;</div>Automates tasks, reducing overhead</div>
+          <div class="c-item"><div class="c-check" aria-hidden="true">&#10003;</div>Expert support + AI guidance</div>
+        </article>
+        <article class="c-card reveal d1" aria-labelledby="others-comparison">
+          <div class="c-head">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="width:24px;height:24px;color:var(--text3);" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>
+            <strong id="others-comparison">Others</strong><span>Others</span>
+          </div>
+          <div class="c-item"><div class="c-x" aria-hidden="true">&#10005;</div>Slower execution and manual setup</div>
+          <div class="c-item"><div class="c-x" aria-hidden="true">&#10005;</div>Requires manual updates as you scale</div>
+          <div class="c-item"><div class="c-x" aria-hidden="true">&#10005;</div>Limited or delayed reporting</div>
+          <div class="c-item"><div class="c-x" aria-hidden="true">&#10005;</div>Higher labor costs, less automation</div>
+          <div class="c-item"><div class="c-x" aria-hidden="true">&#10005;</div>Generic support or none at all</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-s" id="contact" aria-labelledby="cta-title">
+      <div class="cta-line"><span>Reach out anytime</span></div>
+      <h2 id="cta-title">Ready to Automate Smarter?<br>Let's <em>Build Together</em></h2>
+      <p>Schedule a Call and Begin Automating</p>
+      <a href="mailto:help.agentiify@yahoo.com" class="btn-p" aria-label="Book a free consultation call">Book A Free Call ✈</a>
+      <div class="cta-socs" role="navigation" aria-label="Social media links">
+        <a href="#" class="cta-soc" aria-label="Follow us on X (Twitter)">X</a>
+        <a href="#" class="cta-soc" aria-label="Connect with us on LinkedIn">in</a>
+        <a href="#" class="cta-soc" aria-label="Follow us on Instagram">ig</a>
+      </div>
+      <a href="mailto:help.agentiify@yahoo.com" class="cta-mail" aria-label="Email us at help.agentiify@yahoo.com">help.agentiify@yahoo.com</a>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div class="fg">
+      <a href="#" class="fl" aria-label="Agentiify home">
+        <img src="https://via.placeholder.com/26x26/7C3AED/FFFFFF?text=A" alt="Agentiify logo" width="26" height="26" loading="lazy">
+        Agentiify
+      </a>
+      <ul class="f-links" role="navigation" aria-label="Footer navigation">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="fbot">
+      <p>&copy; <time datetime="2025">2025</time> Agentiify. All rights reserved.</p>
+      <p>Designed for autonomous business growth.</p>
+    </div>
+  </footer>
+
+  <!-- Security: Nonce for CSP if needed -->
+  <script nonce="production-nonce-placeholder">
+    // Particle animation - secure & performant
+    const canvas = document.getElementById('particles');
+    if (canvas) {
+      const ctx = canvas.getContext('2d', { alpha: true });
+      let w, h, particles = [];
+      let animationFrameId;
+      
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      }
+      
+      window.addEventListener('resize', () => {
+        resize();
+        particles = [];
+        for (let i = 0; i < 60; i++) particles.push(new Particle());
+      }, { passive: true });
+      
+      resize();
+      
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+        
+        reset() {
+          this.x = Math.random() * w;
+          this.y = Math.random() * h;
+          this.vx = (Math.random() - 0.5) * 0.3;
+          this.vy = (Math.random() - 0.5) * 0.3;
+          this.size = Math.random() * 1.5 + 0.5;
+          this.alpha = Math.random() * 0.4 + 0.1;
+        }
+        
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+          
+          if (this.x < 0) this.x = w;
+          if (this.x > w) this.x = 0;
+          if (this.y < 0) this.y = h;
+          if (this.y > h) this.y = 0;
+        }
+        
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(124, 58, 237, ${this.alpha})`;
+          ctx.fill();
+        }
+      }
+      
+      for (let i = 0; i < 60; i++) particles.push(new Particle());
+      
+      function animate() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+        animationFrameId = requestAnimationFrame(animate);
+      }
+      
+      animate();
+      
+      window.addEventListener('beforeunload', () => {
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+        }
+        if (ctx) {
+          ctx.clearRect(0, 0, w, h);
+        }
+      });
+    }
+
+    // Scroll reveal - accessible & performant
+    const obs = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { 
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
+    
+    document.querySelectorAll('.reveal').forEach(el => {
+      if (el.isConnected) {
+        obs.observe(el);
+      }
+    });
+
+    // Nav scroll effect - throttled for performance
+    let lastScrollY = window.scrollY;
+    const nav = document.getElementById('nav');
+    
+    function handleScroll() {
+      const currentScrollY = window.scrollY;
+      
+      if (Math.abs(currentScrollY - lastScrollY) > 10) {
+        if (currentScrollY > 60) {
+          nav?.classList.add('sc');
+        } else {
+          nav?.classList.remove('sc');
+        }
+        lastScrollY = currentScrollY;
+      }
+      
+      requestAnimationFrame(handleScroll);
+    }
+    
+    if (nav) {
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    }
+
+    // FAQ accordion - accessible & secure
+    document.querySelectorAll('.faq-q').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const isOpen = item.classList.contains('open');
+        const answerId = q.getAttribute('aria-controls');
+        const answer = document.getElementById(answerId);
+        
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('open');
+          const btn = i.querySelector('.faq-q');
+          const ans = document.getElementById(btn?.getAttribute('aria-controls'));
+          if (btn && ans) {
+            btn.setAttribute('aria-expanded', 'false');
+            ans.setAttribute('aria-hidden', 'true');
+          }
+        });
+        
+        if (!isOpen && answer) {
+          item.classList.add('open');
+          q.setAttribute('aria-expanded', 'true');
+          answer.setAttribute('aria-hidden', 'false');
+        }
+      });
+      
+      q.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          q.click();
+        }
+      });
+    });
+
+    // Process tabs - accessible & secure
+    const pData = [
+      {
+        num: '01',
+        title: 'Discovery & Strategy',
+        text: 'We begin with a comprehensive audit of your existing workflows, data sources, and operational bottlenecks. Our team maps every touchpoint to identify the highest-impact automation opportunities for your business.',
+        list: [
+          'Full workflow and systems audit',
+          'ROI modeling and priority scoring',
+          'Custom agent architecture blueprint',
+          'Integration requirements mapping'
+        ]
+      },
+      {
+        num: '02',
+        title: 'Build & Integration',
+        text: 'Our engineers develop your custom AI agents using modular architecture. We connect to your CRM, ERP, databases, and communication tools — ensuring seamless data flow and zero disruption to existing operations.',
+        list: [
+          'Agent development with business logic',
+          'API and database integration',
+          'Security and compliance configuration',
+          'Staging environment testing'
+        ]
+      },
+      {
+        num: '03',
+        title: 'Optimize & Scale',
+        text: 'We track key metrics and continuously refine performance using real-time insights. As your business evolves, your automation grows with it — expanding coverage and improving accuracy over time.',
+        list: [
+          'Real-time performance monitoring',
+          'Continuous model refinement',
+          'Expansion to new workflows',
+          'Dedicated support and optimization'
+        ]
+      }
+    ];
+    
+    document.querySelectorAll('.p-tab').forEach((tab, idx) => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.p-tab').forEach(t => {
+          t.classList.remove('act');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('act');
+        tab.setAttribute('aria-selected', 'true');
+        
+        const d = pData[idx];
+        const contentEl = document.querySelector('.p-text');
+        
+        if (contentEl) {
+          contentEl.innerHTML = `
+            <div class="step-num">${d.num}</div>
+            <h3>${d.title}</h3>
+            <p>${d.text}</p>
+            <ul class="p-list">
+              ${d.list.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+          `;
+          
+          contentEl.id = `step-${idx + 1}`;
+          contentEl.setAttribute('role', 'tabpanel');
+          contentEl.setAttribute('aria-labelledby', `tab-${idx + 1}`);
+        }
+      });
+      
+      tab.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          tab.click();
+        }
+      });
+    });
+
+    // Smooth scroll - accessible & performant
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        
+        if (href.startsWith('mailto:') || href.startsWith('http')) {
+          return;
+        }
+        
+        if (href !== '#' && href.length > 1) {
+          e.preventDefault();
+          const targetEl = document.querySelector(href);
+          
+          if (targetEl) {
+            const headerOffset = 80;
+            const elementPosition = targetEl.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+            
+            targetEl.setAttribute('tabindex', '-1');
+            targetEl.focus();
+          }
+        }
+      });
+    });
+
+    // Security: Prevent form auto-submission via keyboard
+    document.querySelectorAll('button, a, input, textarea').forEach(el => {
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && (el.tagName === 'BUTTON' || el.tagName === 'A')) {
+          e.preventDefault();
+          el.click();
+        }
+      });
+    });
+
+    // Security: Prevent image-based XSS via onerror
+    document.querySelectorAll('img').forEach(img => {
+      img.addEventListener('error', function() {
+        this.src = 'https://via.placeholder.com/32x32/7C3AED/FFFFFF?text=⚠️';
+        this.alt = 'Image failed to load';
+        this.removeAttribute('srcset');
+      });
+    });
+  </script>
+</body>
+</html>
